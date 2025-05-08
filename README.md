@@ -1,18 +1,6 @@
-# Welcome to React Router!
+# Welcome to Stocker!
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+A web app for "tracking" the stock market.
 
 ## Getting Started
 
@@ -34,6 +22,8 @@ npm run dev
 
 Your application will be available at `http://localhost:5173`.
 
+Create a .env file in the root directory and store your secrets there
+
 ## Building for Production
 
 Create a production build:
@@ -49,10 +39,10 @@ npm run build
 To build and run using Docker:
 
 ```bash
-docker build -t my-app .
+docker build -t stocker .
 
 # Run the container
-docker run -p 3000:3000 my-app
+docker run -p 3000:3000 stocker
 ```
 
 The containerized application can be deployed to any platform that supports Docker, including:
@@ -78,10 +68,9 @@ Make sure to deploy the output of `npm run build`
 │   └── server/    # Server-side code
 ```
 
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+### TODO
+- [ ] Add date range selector to dashboard
+- [ ] Hydrate application with list of tickers, limit to 1000
+- [ ] Add candlestick chart for more insight into a ticker
+- [ ] Add permalink share button charts
+- [ ] Add account creation
