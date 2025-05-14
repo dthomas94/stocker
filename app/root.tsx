@@ -9,7 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
+import { Flex, Theme } from "@radix-ui/themes";
+import NavSidebar from "./components/nav-sidebar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,9 +40,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="px-2 py-2 bg-gray-100">
         <Theme hasBackground={false}>
-          {children}
-          <ScrollRestoration />
-          <Scripts />
+          <Flex>
+            <NavSidebar />
+            {children}
+            <ScrollRestoration />
+            <Scripts />
+          </Flex>
         </Theme>
       </body>
     </html>

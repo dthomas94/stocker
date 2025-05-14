@@ -11,7 +11,7 @@ const routes = [
   {
     Icon: PlusSquare,
     title: "Dashboard",
-    to: "/",
+    to: "/dashboard",
     prefetch: "viewport" as NavLinkProps["prefetch"],
   },
   { Icon: TrendUp, title: "Portfolio", to: "/portfolio" },
@@ -46,7 +46,7 @@ const StyledNavLink = ({
   </NavLink>
 );
 
-export default function SidebarLayout() {
+export default function NavSidebar() {
   return (
     <Flex className="bg-gray-800 w-64 p-6 space-y-4" asChild direction="column">
       <nav>
