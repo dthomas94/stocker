@@ -22,7 +22,7 @@ npm run dev
 
 Your application will be available at `http://localhost:5173`.
 
-Create a .env file in the root directory and store your secrets there
+Create a .env.local file in the root directory and store your VITE_POLY_API_KEY there (https://polygon.io/dashboard)
 
 ## Building for Production
 
@@ -69,6 +69,7 @@ Make sure to deploy the output of `npm run build`
 ```
 
 ### TODO
+
 - [ ] Add date range selector to dashboard
 - [ ] Hydrate application with list of tickers, limit to 1000
 - [ ] Add candlestick chart for more insight into a ticker
