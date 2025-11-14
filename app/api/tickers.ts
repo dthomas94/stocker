@@ -2,7 +2,6 @@ import {
   ListTickersMarketEnum,
   ListTickersOrderEnum,
   ListTickersSortEnum,
-  type ListTickers200Response,
   type ListTickers200ResponseResultsInner,
 } from "@massive.com/client-js";
 import rest from "@api/base";

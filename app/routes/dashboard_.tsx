@@ -13,6 +13,7 @@ import { Flex } from "@radix-ui/themes/components/flex";
 import { getTickerAggregate } from "@api/ticker";
 import type { LineData, Time } from "lightweight-charts";
 import { format, subDays } from "date-fns";
+import { useAllTickers } from "~/utils/hooks";
 
 const DEFAULT_TICKER = "A";
 const DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
@@ -73,9 +74,10 @@ export default function Dashboard() {
   const {
     data: { tickerAggs, selectedTicker },
   } = useLoaderData<typeof loader>();
-
   const submit = useSubmit();
   const fetcher = useFetcher<typeof loader>();
+
+  const { data: tickers } = useAllTickers();
 
   return (
     <main className="flex-1 p-8">
@@ -113,7 +115,7 @@ export default function Dashboard() {
               value: selectedTicker.name,
             }}
             isSearchable={false}
-            options={[]}
+            options={tickers}
             className="z-10 font-bold"
             onChange={(v) => {
               if (v?.value) {
