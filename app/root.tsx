@@ -10,7 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "@radix-ui/themes/styles.css";
 import { Flex, Theme } from "@radix-ui/themes";
-import NavSidebar from "./components/nav-sidebar";
+import NavSidebar from "./components/NavSidebar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

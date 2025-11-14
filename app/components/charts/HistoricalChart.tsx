@@ -16,7 +16,7 @@ export default function HistoricalChart({ data }: HistoricalChartProps) {
   useEffect(() => {
     if (data && chartRef.current) {
       const handleResize = () => {
-        chart.applyOptions({ width: chartRef.current.clientWidth });
+        chart.applyOptions({ width: chartRef.current?.clientWidth });
 
         chart.timeScale().fitContent();
       };

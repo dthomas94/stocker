@@ -1,15 +1,9 @@
-import { restClient, type IAggs, type ITickers } from "@polygon.io/client-js";
-const rest = restClient(import.meta.env.VITE_POLY_API_KEY);
-
-export async function getTickers(): Promise<ITickers["results"] | []> {
-  try {
-    const res = await rest.reference.tickers({ market: "stocks", limit: 100 });
-    return res?.results ?? [];
-  } catch (err) {
-    console.error("Uh-oh", err);
-    return [];
-  }
-}
+import {
+  GetStocksAggregatesSortEnum,
+  GetStocksAggregatesTimespanEnum,
+  type GetStocksAggregates200Response,
+} from "@massive.com/client-js";
+import rest from "@api/base";
 
 /**
  * Retrieve aggregated historical OHLC (Open, High, Low, Close) and volume data for a specified stock ticker over a custom date range and time interval in Eastern Time (ET)
@@ -20,27 +14,30 @@ export async function getTickers(): Promise<ITickers["results"] | []> {
  * @param to - The end of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
  * @returns An array of results containing the requested data.
  */
-export async function getTickerAggregate(
+async function getTickerAggregate(
   ticker: string,
   multiplier: number,
   timespan: string,
   from: string,
   to: string
-): Promise<IAggs["results"] | []> {
+): Promise<GetStocksAggregates200Response["results"]> {
   try {
-    const res = await rest.stocks.aggregates(
+    const res = await rest.getStocksAggregates(
       ticker,
       multiplier,
-      timespan,
+      GetStocksAggregatesTimespanEnum[
+        timespan as keyof typeof GetStocksAggregatesTimespanEnum
+      ],
       from,
       to,
-      {
-        sort: "asc",
-      }
+      undefined,
+      GetStocksAggregatesSortEnum.Asc
     );
-    return res?.results ?? [];
+    return res.results ?? [];
   } catch (err) {
     console.error("Uh-oh", err);
     return [];
   }
 }
+
+export { getTickerAggregate };
