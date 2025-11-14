@@ -1,77 +1,152 @@
-# Welcome to Stocker!
+# Stocker — Stock Market Tracking Dashboard
+*A fast, modern React + TypeScript dashboard for exploring real-time and historical stock data.*
 
-A web app for "tracking" the stock market.
+> Stocker is a data-driven UI built with **Vite**, **React**, and the **Polygon.io API**, designed for fast local development and cloud-ready deployment via Docker. It includes ticker search, quote hydration, basic charts, and a clear foundation for expansion into richer analytics and UI interactions.
 
-## Getting Started
+---
 
-### Installation
+## 🚀 Features
 
-Install the dependencies:
+- **Fast Vite-powered React app** with instant hot reload  
+- **Real-time stock data** via Polygon.io REST endpoints  
+- **Ticker search & detail pages** using React Router  
+- **TypeScript throughout** for safe, maintainable code  
+- **Containerized with Docker** for portable deployment  
+- Clean, extensible structure for adding:
+  - Candlestick charts  
+  - Date-range selectors  
+  - Watchlists  
+  - Favorites  
+  - Portfolio/position tracking  
+  - More complex analytics  
 
-```bash
-npm install
+---
+
+## 🏛️ Architecture Overview
+
+Stocker uses a clean, modular structure to keep UI, API, and state layers separated and easy to evolve.
+
+```text
+/src
+  /components        → UI components (tickers, charts, layout)
+  /pages             → Route-driven views (Dashboard, Ticker Details)
+  /lib
+    polygonClient.ts → Centralized API client + typed responses
+    types.ts         → Strongly-typed Polygon interfaces
+  /hooks             → Reusable hooks for fetching + async state
+  /styles            → Global styles, theme tokens
 ```
 
-### Development
+### Key architectural decisions
 
-Start the development server with HMR:
+**1. Strong API boundary**  
+All Polygon requests flow through a dedicated `polygonClient.ts` module. This makes it easy to swap providers, mock requests for testing, or introduce caching.
 
-```bash
+**2. Routing as product surface**  
+React Router handles navigation with deep-linkable URLs like:
+
+```text
+/ticker/AAPL?range=6M
+```
+
+This enables easy sharing, bookmarking, and future analytics filters.
+
+**3. Async state management pattern**  
+Components use a predictable async state shape:
+
+```ts
+type AsyncState<T> =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: string };
+```
+
+This keeps loading, error, and success rendering clean and consistent.
+
+**4. Containerized deployment**  
+A production-ready Dockerfile builds and serves the final Vite bundle.
+
+---
+
+## 🛠️ Setup & Development
+
+### Requirements
+- Node.js 18+
+- Polygon.io API key (`VITE_POLY_API_KEY`)
+- npm or pnpm
+
+### 1. Install dependencies
+
+```sh
+npm install
+# or
+pnpm install
+```
+
+### 2. Create environment file
+
+Create a `.env` file at the project root:
+
+```text
+VITE_POLY_API_KEY=your_api_key_here
+```
+
+### 3. Start development server
+
+```sh
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+### 4. Build for production
 
-Create a .env.local file in the root directory and store your VITE_POLY_API_KEY there (https://polygon.io/dashboard)
-
-## Building for Production
-
-Create a production build:
-
-```bash
+```sh
 npm run build
 ```
 
-## Deployment
+### 5. Preview production build
 
-### Docker Deployment
+```sh
+npm run preview
+```
 
-To build and run using Docker:
+---
 
-```bash
+## 🐳 Docker Deployment
+
+Build and run the production image locally:
+
+```sh
 docker build -t stocker .
-
-# Run the container
-docker run -p 3000:3000 stocker
+docker run -p 8080:80 stocker
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Visit:
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+```text
+http://localhost:8080
 ```
 
-### TODO
+---
 
-- [ ] Add date range selector to dashboard
-- [ ] Hydrate application with list of tickers, limit to 1000
-- [ ] Add candlestick chart for more insight into a ticker
-- [ ] Add permalink share button charts
-- [ ] Add account creation
+## 🗺️ Roadmap
+
+### Planned enhancements
+- [ ] Date-range selector (1D / 1M / 6M / 1Y)  
+- [ ] Candlestick chart with real OHLC data  
+- [ ] Searchable ticker directory (up to 1000 symbols)  
+- [ ] Quick stats: day change %, 52-week high/low, volume  
+- [ ] Persistent watchlist / favorites  
+- [ ] Live demo deployment (Railway, Fly.io, or Render)  
+- [ ] Expanded README screenshots + demo video  
+
+### Longer-term ideas
+- [ ] WebSockets for live streaming  
+- [ ] User accounts 
+- [ ] Portfolio tracking and alerts  
+
+---
+
+## 📄 License
+
+MIT License — free to use, modify, and distribute.
