@@ -27,14 +27,12 @@
 Stocker uses a clean, modular structure to keep UI, API, and state layers separated and easy to evolve.
 
 ```text
-/src
+/app
+  /api               → Helper functions for interacting with the Polygon api
   /components        → UI components (tickers, charts, layout)
-  /pages             → Route-driven views (Dashboard, Ticker Details)
-  /lib
-    polygonClient.ts → Centralized API client + typed responses
-    types.ts         → Strongly-typed Polygon interfaces
+  /routes             → Route-driven views (Dashboard, Ticker Details)
+  /utils
   /hooks             → Reusable hooks for fetching + async state
-  /styles            → Global styles, theme tokens
 ```
 
 ### Key architectural decisions
